@@ -19,7 +19,7 @@ If you have any ideas or find any bugs, please open an issue.
 
 To use AppVolumeHotkeys you only need:
 * A computer with at least Windows Vista
-* [Microsoft .NET Framework 4](https://www.microsoft.com/en-us/download/details.aspx?id=17851)
+* [Microsoft .NET Framework 4.6.1](https://www.microsoft.com/en-us/download/details.aspx?id=49981)
 
 ### Installing
 Just run the executable from anywhere you want.
