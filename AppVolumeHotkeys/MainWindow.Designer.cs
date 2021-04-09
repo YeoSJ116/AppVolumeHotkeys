@@ -40,49 +40,49 @@
             this.itemVolUp = new System.Windows.Forms.ToolStripMenuItem();
             this.itemVolDown = new System.Windows.Forms.ToolStripMenuItem();
             this.itemMute = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.itemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.itemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.timer_ptt = new System.Windows.Forms.Timer(this.components);
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.F1 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBox13 = new System.Windows.Forms.ComboBox();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.trackVolume = new System.Windows.Forms.TrackBar();
+            this.cmbComboKey = new System.Windows.Forms.ComboBox();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.comboBox9 = new System.Windows.Forms.ComboBox();
+            this.F12 = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.F8 = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.comboBox10 = new System.Windows.Forms.ComboBox();
+            this.F11 = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.F4 = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.comboBox11 = new System.Windows.Forms.ComboBox();
+            this.F10 = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.F7 = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
-            this.comboBox12 = new System.Windows.Forms.ComboBox();
+            this.F9 = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.F3 = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.comboBox7 = new System.Windows.Forms.ComboBox();
+            this.F6 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.F2 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.comboBox8 = new System.Windows.Forms.ComboBox();
+            this.F5 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label_Description3 = new System.Windows.Forms.Label();
             this.nudVolumeSteps = new System.Windows.Forms.NumericUpDown();
@@ -104,11 +104,11 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.panel13 = new System.Windows.Forms.Panel();
             this.cmsTray.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.panel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).BeginInit();
             this.panel9.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel10.SuspendLayout();
@@ -123,8 +123,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudVolumeSteps)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSoftMuteLevel)).BeginInit();
             this.groupBox_Settings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            this.panel13.SuspendLayout();
             this.SuspendLayout();
             // 
             // label_Description4
@@ -158,7 +156,7 @@
             // notifyIcon
             // 
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
-            this.notifyIcon.Text = "AppVolumeHotkeys";
+            this.notifyIcon.Text = "Program volume controller";
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             this.notifyIcon.MouseMove += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseMove);
@@ -172,12 +170,10 @@
             this.itemVolUp,
             this.itemVolDown,
             this.itemMute,
-            this.toolStripSeparator2,
-            this.itemAbout,
             this.toolStripSeparator3,
             this.itemExit});
             this.cmsTray.Name = "cmsTray";
-            this.cmsTray.Size = new System.Drawing.Size(153, 154);
+            this.cmsTray.Size = new System.Drawing.Size(153, 126);
             // 
             // itemOpen
             // 
@@ -212,18 +208,6 @@
             this.itemMute.Text = "Toggle Mute";
             this.itemMute.Click += new System.EventHandler(this.itemMute_Click);
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
-            // 
-            // itemAbout
-            // 
-            this.itemAbout.Name = "itemAbout";
-            this.itemAbout.Size = new System.Drawing.Size(152, 22);
-            this.itemAbout.Text = "About";
-            this.itemAbout.Click += new System.EventHandler(this.itemAbout_Click);
-            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
@@ -251,27 +235,27 @@
             this.label2.TabIndex = 10;
             this.label2.Text = "F1";
             // 
-            // comboBox1
+            // F1
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.F1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.F1.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.F1.FormattingEnabled = true;
+            this.F1.Items.AddRange(new object[] {
             "",
             "",
             "",
             "",
             ""});
-            this.comboBox1.Location = new System.Drawing.Point(4, 20);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(48, 34);
-            this.comboBox1.TabIndex = 14;
+            this.F1.Location = new System.Drawing.Point(4, 20);
+            this.F1.Name = "F1";
+            this.F1.Size = new System.Drawing.Size(48, 34);
+            this.F1.TabIndex = 14;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.F1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(12, 20);
             this.panel1.Name = "panel1";
@@ -281,7 +265,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.panel13);
-            this.groupBox1.Controls.Add(this.comboBox13);
+            this.groupBox1.Controls.Add(this.cmbComboKey);
             this.groupBox1.Controls.Add(this.label_Description4);
             this.groupBox1.Controls.Add(this.panel9);
             this.groupBox1.Controls.Add(this.lblAppVolume);
@@ -304,44 +288,62 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Hotkey mapping";
             // 
-            // comboBox13
+            // panel13
             // 
-            this.comboBox13.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox13.DropDownWidth = 206;
-            this.comboBox13.FormattingEnabled = true;
-            this.comboBox13.Location = new System.Drawing.Point(739, 87);
-            this.comboBox13.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.comboBox13.Name = "comboBox13";
-            this.comboBox13.Size = new System.Drawing.Size(89, 20);
-            this.comboBox13.TabIndex = 25;
-            this.comboBox13.TabStop = false;
+            this.panel13.Controls.Add(this.trackVolume);
+            this.panel13.Location = new System.Drawing.Point(85, 82);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(545, 33);
+            this.panel13.TabIndex = 27;
+            // 
+            // trackVolume
+            // 
+            this.trackVolume.Location = new System.Drawing.Point(0, 4);
+            this.trackVolume.Maximum = 100;
+            this.trackVolume.Name = "trackVolume";
+            this.trackVolume.Size = new System.Drawing.Size(545, 45);
+            this.trackVolume.TabIndex = 26;
+            this.trackVolume.Value = 100;
+            this.trackVolume.Scroll += new System.EventHandler(this.trackVolume_Scroll);
+            // 
+            // cmbComboKey
+            // 
+            this.cmbComboKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbComboKey.DropDownWidth = 206;
+            this.cmbComboKey.FormattingEnabled = true;
+            this.cmbComboKey.Location = new System.Drawing.Point(739, 87);
+            this.cmbComboKey.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cmbComboKey.Name = "cmbComboKey";
+            this.cmbComboKey.Size = new System.Drawing.Size(89, 20);
+            this.cmbComboKey.TabIndex = 25;
+            this.cmbComboKey.TabStop = false;
             // 
             // panel9
             // 
             this.panel9.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel9.Controls.Add(this.comboBox9);
+            this.panel9.Controls.Add(this.F12);
             this.panel9.Controls.Add(this.label11);
             this.panel9.Location = new System.Drawing.Point(768, 20);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(60, 60);
             this.panel9.TabIndex = 18;
             // 
-            // comboBox9
+            // F12
             // 
-            this.comboBox9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox9.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.comboBox9.FormattingEnabled = true;
-            this.comboBox9.Items.AddRange(new object[] {
+            this.F12.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.F12.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.F12.FormattingEnabled = true;
+            this.F12.Items.AddRange(new object[] {
             "",
             "",
             "",
             "",
             ""});
-            this.comboBox9.Location = new System.Drawing.Point(4, 20);
-            this.comboBox9.Name = "comboBox9";
-            this.comboBox9.Size = new System.Drawing.Size(48, 34);
-            this.comboBox9.TabIndex = 14;
+            this.F12.Location = new System.Drawing.Point(4, 20);
+            this.F12.Name = "F12";
+            this.F12.Size = new System.Drawing.Size(48, 34);
+            this.F12.TabIndex = 14;
             // 
             // label11
             // 
@@ -357,28 +359,28 @@
             // 
             this.panel5.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel5.Controls.Add(this.comboBox5);
+            this.panel5.Controls.Add(this.F8);
             this.panel5.Controls.Add(this.label7);
             this.panel5.Location = new System.Drawing.Point(490, 20);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(60, 60);
             this.panel5.TabIndex = 18;
             // 
-            // comboBox5
+            // F8
             // 
-            this.comboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox5.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
+            this.F8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.F8.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.F8.FormattingEnabled = true;
+            this.F8.Items.AddRange(new object[] {
             "",
             "",
             "",
             "",
             ""});
-            this.comboBox5.Location = new System.Drawing.Point(4, 20);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(48, 34);
-            this.comboBox5.TabIndex = 14;
+            this.F8.Location = new System.Drawing.Point(4, 20);
+            this.F8.Name = "F8";
+            this.F8.Size = new System.Drawing.Size(48, 34);
+            this.F8.TabIndex = 14;
             // 
             // label7
             // 
@@ -394,28 +396,28 @@
             // 
             this.panel10.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel10.Controls.Add(this.comboBox10);
+            this.panel10.Controls.Add(this.F11);
             this.panel10.Controls.Add(this.label12);
             this.panel10.Location = new System.Drawing.Point(702, 20);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(60, 60);
             this.panel10.TabIndex = 19;
             // 
-            // comboBox10
+            // F11
             // 
-            this.comboBox10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox10.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.comboBox10.FormattingEnabled = true;
-            this.comboBox10.Items.AddRange(new object[] {
+            this.F11.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.F11.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.F11.FormattingEnabled = true;
+            this.F11.Items.AddRange(new object[] {
             "",
             "",
             "",
             "",
             ""});
-            this.comboBox10.Location = new System.Drawing.Point(4, 20);
-            this.comboBox10.Name = "comboBox10";
-            this.comboBox10.Size = new System.Drawing.Size(48, 34);
-            this.comboBox10.TabIndex = 14;
+            this.F11.Location = new System.Drawing.Point(4, 20);
+            this.F11.Name = "F11";
+            this.F11.Size = new System.Drawing.Size(48, 34);
+            this.F11.TabIndex = 14;
             // 
             // label12
             // 
@@ -431,28 +433,28 @@
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel4.Controls.Add(this.comboBox4);
+            this.panel4.Controls.Add(this.F4);
             this.panel4.Controls.Add(this.label6);
             this.panel4.Location = new System.Drawing.Point(210, 20);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(60, 60);
             this.panel4.TabIndex = 16;
             // 
-            // comboBox4
+            // F4
             // 
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
+            this.F4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.F4.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.F4.FormattingEnabled = true;
+            this.F4.Items.AddRange(new object[] {
             "",
             "",
             "",
             "",
             ""});
-            this.comboBox4.Location = new System.Drawing.Point(4, 20);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(48, 34);
-            this.comboBox4.TabIndex = 14;
+            this.F4.Location = new System.Drawing.Point(4, 20);
+            this.F4.Name = "F4";
+            this.F4.Size = new System.Drawing.Size(48, 34);
+            this.F4.TabIndex = 14;
             // 
             // label6
             // 
@@ -477,28 +479,28 @@
             // 
             this.panel11.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel11.Controls.Add(this.comboBox11);
+            this.panel11.Controls.Add(this.F10);
             this.panel11.Controls.Add(this.label13);
             this.panel11.Location = new System.Drawing.Point(636, 20);
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(60, 60);
             this.panel11.TabIndex = 20;
             // 
-            // comboBox11
+            // F10
             // 
-            this.comboBox11.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox11.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.comboBox11.FormattingEnabled = true;
-            this.comboBox11.Items.AddRange(new object[] {
+            this.F10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.F10.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.F10.FormattingEnabled = true;
+            this.F10.Items.AddRange(new object[] {
             "",
             "",
             "",
             "",
             ""});
-            this.comboBox11.Location = new System.Drawing.Point(4, 20);
-            this.comboBox11.Name = "comboBox11";
-            this.comboBox11.Size = new System.Drawing.Size(48, 34);
-            this.comboBox11.TabIndex = 14;
+            this.F10.Location = new System.Drawing.Point(4, 20);
+            this.F10.Name = "F10";
+            this.F10.Size = new System.Drawing.Size(48, 34);
+            this.F10.TabIndex = 14;
             // 
             // label13
             // 
@@ -514,28 +516,28 @@
             // 
             this.panel6.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel6.Controls.Add(this.comboBox6);
+            this.panel6.Controls.Add(this.F7);
             this.panel6.Controls.Add(this.label8);
             this.panel6.Location = new System.Drawing.Point(424, 20);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(60, 60);
             this.panel6.TabIndex = 19;
             // 
-            // comboBox6
+            // F7
             // 
-            this.comboBox6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox6.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Items.AddRange(new object[] {
+            this.F7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.F7.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.F7.FormattingEnabled = true;
+            this.F7.Items.AddRange(new object[] {
             "",
             "",
             "",
             "",
             ""});
-            this.comboBox6.Location = new System.Drawing.Point(4, 20);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(48, 34);
-            this.comboBox6.TabIndex = 14;
+            this.F7.Location = new System.Drawing.Point(4, 20);
+            this.F7.Name = "F7";
+            this.F7.Size = new System.Drawing.Size(48, 34);
+            this.F7.TabIndex = 14;
             // 
             // label8
             // 
@@ -551,28 +553,28 @@
             // 
             this.panel12.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel12.Controls.Add(this.comboBox12);
+            this.panel12.Controls.Add(this.F9);
             this.panel12.Controls.Add(this.label14);
             this.panel12.Location = new System.Drawing.Point(570, 20);
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(60, 60);
             this.panel12.TabIndex = 17;
             // 
-            // comboBox12
+            // F9
             // 
-            this.comboBox12.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox12.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.comboBox12.FormattingEnabled = true;
-            this.comboBox12.Items.AddRange(new object[] {
+            this.F9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.F9.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.F9.FormattingEnabled = true;
+            this.F9.Items.AddRange(new object[] {
             "",
             "",
             "",
             "",
             ""});
-            this.comboBox12.Location = new System.Drawing.Point(4, 20);
-            this.comboBox12.Name = "comboBox12";
-            this.comboBox12.Size = new System.Drawing.Size(48, 34);
-            this.comboBox12.TabIndex = 14;
+            this.F9.Location = new System.Drawing.Point(4, 20);
+            this.F9.Name = "F9";
+            this.F9.Size = new System.Drawing.Size(48, 34);
+            this.F9.TabIndex = 14;
             // 
             // label14
             // 
@@ -588,28 +590,28 @@
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.comboBox3);
+            this.panel3.Controls.Add(this.F3);
             this.panel3.Controls.Add(this.label5);
             this.panel3.Location = new System.Drawing.Point(144, 20);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(60, 60);
             this.panel3.TabIndex = 16;
             // 
-            // comboBox3
+            // F3
             // 
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.F3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.F3.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.F3.FormattingEnabled = true;
+            this.F3.Items.AddRange(new object[] {
             "",
             "",
             "",
             "",
             ""});
-            this.comboBox3.Location = new System.Drawing.Point(4, 20);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(48, 34);
-            this.comboBox3.TabIndex = 14;
+            this.F3.Location = new System.Drawing.Point(4, 20);
+            this.F3.Name = "F3";
+            this.F3.Size = new System.Drawing.Size(48, 34);
+            this.F3.TabIndex = 14;
             // 
             // label5
             // 
@@ -625,28 +627,28 @@
             // 
             this.panel7.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel7.Controls.Add(this.comboBox7);
+            this.panel7.Controls.Add(this.F6);
             this.panel7.Controls.Add(this.label9);
             this.panel7.Location = new System.Drawing.Point(358, 20);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(60, 60);
             this.panel7.TabIndex = 20;
             // 
-            // comboBox7
+            // F6
             // 
-            this.comboBox7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox7.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Items.AddRange(new object[] {
+            this.F6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.F6.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.F6.FormattingEnabled = true;
+            this.F6.Items.AddRange(new object[] {
             "",
             "",
             "",
             "",
             ""});
-            this.comboBox7.Location = new System.Drawing.Point(4, 20);
-            this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(48, 34);
-            this.comboBox7.TabIndex = 14;
+            this.F6.Location = new System.Drawing.Point(4, 20);
+            this.F6.Name = "F6";
+            this.F6.Size = new System.Drawing.Size(48, 34);
+            this.F6.TabIndex = 14;
             // 
             // label9
             // 
@@ -662,28 +664,28 @@
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.comboBox2);
+            this.panel2.Controls.Add(this.F2);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Location = new System.Drawing.Point(78, 20);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(60, 60);
             this.panel2.TabIndex = 16;
             // 
-            // comboBox2
+            // F2
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.F2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.F2.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.F2.FormattingEnabled = true;
+            this.F2.Items.AddRange(new object[] {
             "",
             "",
             "",
             "",
             ""});
-            this.comboBox2.Location = new System.Drawing.Point(4, 20);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(48, 34);
-            this.comboBox2.TabIndex = 14;
+            this.F2.Location = new System.Drawing.Point(4, 20);
+            this.F2.Name = "F2";
+            this.F2.Size = new System.Drawing.Size(48, 34);
+            this.F2.TabIndex = 14;
             // 
             // label4
             // 
@@ -699,28 +701,28 @@
             // 
             this.panel8.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel8.Controls.Add(this.comboBox8);
+            this.panel8.Controls.Add(this.F5);
             this.panel8.Controls.Add(this.label10);
             this.panel8.Location = new System.Drawing.Point(292, 20);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(60, 60);
             this.panel8.TabIndex = 17;
             // 
-            // comboBox8
+            // F5
             // 
-            this.comboBox8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox8.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.comboBox8.FormattingEnabled = true;
-            this.comboBox8.Items.AddRange(new object[] {
+            this.F5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.F5.Font = new System.Drawing.Font("Webdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.F5.FormattingEnabled = true;
+            this.F5.Items.AddRange(new object[] {
             "",
             "",
             "",
             "",
             ""});
-            this.comboBox8.Location = new System.Drawing.Point(4, 20);
-            this.comboBox8.Name = "comboBox8";
-            this.comboBox8.Size = new System.Drawing.Size(48, 34);
-            this.comboBox8.TabIndex = 14;
+            this.F5.Location = new System.Drawing.Point(4, 20);
+            this.F5.Name = "F5";
+            this.F5.Size = new System.Drawing.Size(48, 34);
+            this.F5.TabIndex = 14;
             // 
             // label10
             // 
@@ -735,7 +737,7 @@
             // label_Description3
             // 
             this.label_Description3.AutoSize = true;
-            this.label_Description3.Location = new System.Drawing.Point(42, 71);
+            this.label_Description3.Location = new System.Drawing.Point(247, 72);
             this.label_Description3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_Description3.Name = "label_Description3";
             this.label_Description3.Size = new System.Drawing.Size(104, 12);
@@ -744,7 +746,7 @@
             // 
             // nudVolumeSteps
             // 
-            this.nudVolumeSteps.Location = new System.Drawing.Point(154, 67);
+            this.nudVolumeSteps.Location = new System.Drawing.Point(359, 68);
             this.nudVolumeSteps.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.nudVolumeSteps.Name = "nudVolumeSteps";
             this.nudVolumeSteps.Size = new System.Drawing.Size(46, 21);
@@ -760,7 +762,7 @@
             // 
             // btnSaveHotkeys
             // 
-            this.btnSaveHotkeys.Location = new System.Drawing.Point(7, 119);
+            this.btnSaveHotkeys.Location = new System.Drawing.Point(413, 68);
             this.btnSaveHotkeys.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnSaveHotkeys.Name = "btnSaveHotkeys";
             this.btnSaveHotkeys.Size = new System.Drawing.Size(109, 21);
@@ -772,7 +774,7 @@
             // 
             // btnResetHotkeys
             // 
-            this.btnResetHotkeys.Location = new System.Drawing.Point(125, 119);
+            this.btnResetHotkeys.Location = new System.Drawing.Point(413, 96);
             this.btnResetHotkeys.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnResetHotkeys.Name = "btnResetHotkeys";
             this.btnResetHotkeys.Size = new System.Drawing.Size(109, 21);
@@ -789,7 +791,7 @@
             this.cmbAppName.Location = new System.Drawing.Point(67, 40);
             this.cmbAppName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbAppName.Name = "cmbAppName";
-            this.cmbAppName.Size = new System.Drawing.Size(133, 20);
+            this.cmbAppName.Size = new System.Drawing.Size(420, 20);
             this.cmbAppName.TabIndex = 18;
             this.cmbAppName.TabStop = false;
             this.cmbAppName.SelectedIndexChanged += new System.EventHandler(this.cmbAppName_SelectedIndexChanged);
@@ -797,7 +799,7 @@
             // btnAppNameRefresh
             // 
             this.btnAppNameRefresh.Font = new System.Drawing.Font("Wingdings 3", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.btnAppNameRefresh.Location = new System.Drawing.Point(207, 40);
+            this.btnAppNameRefresh.Location = new System.Drawing.Point(495, 40);
             this.btnAppNameRefresh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAppNameRefresh.Name = "btnAppNameRefresh";
             this.btnAppNameRefresh.Size = new System.Drawing.Size(27, 21);
@@ -815,7 +817,7 @@
             this.cmbEndpoints.Location = new System.Drawing.Point(67, 17);
             this.cmbEndpoints.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbEndpoints.Name = "cmbEndpoints";
-            this.cmbEndpoints.Size = new System.Drawing.Size(133, 20);
+            this.cmbEndpoints.Size = new System.Drawing.Size(420, 20);
             this.cmbEndpoints.TabIndex = 19;
             this.cmbEndpoints.TabStop = false;
             this.cmbEndpoints.SelectedIndexChanged += new System.EventHandler(this.cmbEndpoints_SelectedIndexChanged);
@@ -823,7 +825,7 @@
             // btnEndpointsRefresh
             // 
             this.btnEndpointsRefresh.Font = new System.Drawing.Font("Wingdings 3", 9F, System.Drawing.FontStyle.Bold);
-            this.btnEndpointsRefresh.Location = new System.Drawing.Point(207, 16);
+            this.btnEndpointsRefresh.Location = new System.Drawing.Point(495, 16);
             this.btnEndpointsRefresh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnEndpointsRefresh.Name = "btnEndpointsRefresh";
             this.btnEndpointsRefresh.Size = new System.Drawing.Size(27, 21);
@@ -834,7 +836,7 @@
             // 
             // nudSoftMuteLevel
             // 
-            this.nudSoftMuteLevel.Location = new System.Drawing.Point(154, 92);
+            this.nudSoftMuteLevel.Location = new System.Drawing.Point(359, 96);
             this.nudSoftMuteLevel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nudSoftMuteLevel.Maximum = new decimal(new int[] {
             99,
@@ -855,7 +857,7 @@
             // label_SoftMuteSteps
             // 
             this.label_SoftMuteSteps.AutoSize = true;
-            this.label_SoftMuteSteps.Location = new System.Drawing.Point(83, 96);
+            this.label_SoftMuteSteps.Location = new System.Drawing.Point(288, 100);
             this.label_SoftMuteSteps.Name = "label_SoftMuteSteps";
             this.label_SoftMuteSteps.Size = new System.Drawing.Size(63, 12);
             this.label_SoftMuteSteps.TabIndex = 24;
@@ -879,7 +881,7 @@
             this.groupBox_Settings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox_Settings.Name = "groupBox_Settings";
             this.groupBox_Settings.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox_Settings.Size = new System.Drawing.Size(242, 149);
+            this.groupBox_Settings.Size = new System.Drawing.Size(530, 127);
             this.groupBox_Settings.TabIndex = 2;
             this.groupBox_Settings.TabStop = false;
             this.groupBox_Settings.Text = "Settings";
@@ -905,7 +907,7 @@
             // lnkCostura
             // 
             this.lnkCostura.AutoSize = true;
-            this.lnkCostura.Location = new System.Drawing.Point(455, 254);
+            this.lnkCostura.Location = new System.Drawing.Point(735, 251);
             this.lnkCostura.Name = "lnkCostura";
             this.lnkCostura.Size = new System.Drawing.Size(76, 12);
             this.lnkCostura.TabIndex = 24;
@@ -915,7 +917,7 @@
             // lnkFody
             // 
             this.lnkFody.AutoSize = true;
-            this.lnkFody.Location = new System.Drawing.Point(403, 239);
+            this.lnkFody.Location = new System.Drawing.Point(683, 236);
             this.lnkFody.Name = "lnkFody";
             this.lnkFody.Size = new System.Drawing.Size(76, 12);
             this.lnkFody.TabIndex = 23;
@@ -925,7 +927,7 @@
             // lnkCSCore
             // 
             this.lnkCSCore.AutoSize = true;
-            this.lnkCSCore.Location = new System.Drawing.Point(368, 224);
+            this.lnkCSCore.Location = new System.Drawing.Point(648, 222);
             this.lnkCSCore.Name = "lnkCSCore";
             this.lnkCSCore.Size = new System.Drawing.Size(145, 12);
             this.lnkCSCore.TabIndex = 22;
@@ -935,7 +937,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(269, 254);
+            this.label1.Location = new System.Drawing.Point(549, 250);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(185, 12);
             this.label1.TabIndex = 21;
@@ -944,7 +946,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(269, 239);
+            this.label15.Location = new System.Drawing.Point(549, 236);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(137, 12);
             this.label15.TabIndex = 20;
@@ -953,7 +955,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(269, 224);
+            this.label16.Location = new System.Drawing.Point(549, 222);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(102, 12);
             this.label16.TabIndex = 19;
@@ -962,7 +964,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(269, 148);
+            this.label18.Location = new System.Drawing.Point(549, 147);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(291, 72);
             this.label18.TabIndex = 17;
@@ -970,30 +972,13 @@
     "-Jun (YeoSJ116)\".\r\nForked on \"razorlikes/AppVolumeHotkeys\"\r\nReleased under the M" +
     "IT License.\r\n\r\nOpen source licenses:";
             // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(0, 4);
-            this.trackBar1.Maximum = 100;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(545, 45);
-            this.trackBar1.TabIndex = 26;
-            this.trackBar1.Value = 100;
-            // 
-            // panel13
-            // 
-            this.panel13.Controls.Add(this.trackBar1);
-            this.panel13.Location = new System.Drawing.Point(85, 82);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(545, 33);
-            this.panel13.TabIndex = 27;
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(859, 298);
+            this.ClientSize = new System.Drawing.Size(859, 276);
             this.Controls.Add(this.lnkCostura);
             this.Controls.Add(this.lnkFody);
             this.Controls.Add(this.lnkCSCore);
@@ -1020,6 +1005,9 @@
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).EndInit();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             this.panel5.ResumeLayout(false);
@@ -1046,9 +1034,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudSoftMuteLevel)).EndInit();
             this.groupBox_Settings.ResumeLayout(false);
             this.groupBox_Settings.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            this.panel13.ResumeLayout(false);
-            this.panel13.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1064,48 +1049,46 @@
         private System.Windows.Forms.ToolStripMenuItem itemExit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem itemMute;
-        private System.Windows.Forms.ToolStripMenuItem itemAbout;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem itemVolUp;
         private System.Windows.Forms.ToolStripMenuItem itemVolDown;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.Timer timer_ptt;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox F1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.ComboBox comboBox9;
+        private System.Windows.Forms.ComboBox F12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox F8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.ComboBox comboBox10;
+        private System.Windows.Forms.ComboBox F11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox F4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.ComboBox comboBox11;
+        private System.Windows.Forms.ComboBox F10;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.ComboBox F7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel12;
-        private System.Windows.Forms.ComboBox comboBox12;
+        private System.Windows.Forms.ComboBox F9;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox F3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.ComboBox comboBox7;
+        private System.Windows.Forms.ComboBox F6;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox F2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.ComboBox comboBox8;
+        private System.Windows.Forms.ComboBox F5;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label_Description3;
@@ -1126,11 +1109,11 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.ComboBox comboBox13;
+        private System.Windows.Forms.ComboBox cmbComboKey;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar trackVolume;
     }
 }
 

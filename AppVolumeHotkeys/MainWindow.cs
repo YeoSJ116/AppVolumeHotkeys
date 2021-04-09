@@ -50,7 +50,7 @@ namespace AppVolumeHotkeys
             RegisterHotKey(this.Handle, 3, (int)MuteModifier, (int)MuteHotkey);
 
             var converter = new KeysConverter();
-
+            /*
             tbxVolUpHotkey.Clear();
             if (((int)VolUpModifier & 1) != 0)
                 tbxVolUpHotkey.AppendText("ALT+");
@@ -79,7 +79,8 @@ namespace AppVolumeHotkeys
             tbxMuteHotkey.AppendText(converter.ConvertToString(MuteHotkey));
 
             tbxPTTHotkey.Clear();
-            tbxPTTHotkey.AppendText(converter.ConvertToString(PTTHotkey));
+            tbxPTTHotkey.AppendText(converter.ConvertToString(PTTHotkey))
+            */
 
             VolumeSteps = decimal.ToInt32(nudVolumeSteps.Value);
 
@@ -135,7 +136,7 @@ namespace AppVolumeHotkeys
 
         private void cmbAppName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            WriteVolumeLabel();
+            WriteVolumeValue();
             WriteMuteLabel();
         }
 
@@ -148,13 +149,13 @@ namespace AppVolumeHotkeys
         public void VolumeUp()
         {
             volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, AppVolume + VolumeSteps);
-            WriteVolumeLabel();
+            WriteVolumeValue();
         }
 
         public void VolumeDown()
         {
             volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, AppVolume - VolumeSteps);
-            WriteVolumeLabel();
+            WriteVolumeValue();
         }
         public void ToggleMute()
         {
@@ -164,18 +165,19 @@ namespace AppVolumeHotkeys
             WriteMuteLabel();
         }
 
-        public void WriteVolumeLabel()
+        public void WriteVolumeValue()
         {
             AppVolume = volumeMixer.GetApplicationVolume(cmbAppName.SelectedIndex);
             lblAppVolume.Text = AppVolume.ToString();
+            trackVolume.Value = AppVolume;
         }
 
         public void WriteMuteLabel()
         {
             AppMute = volumeMixer.GetApplicationMute(cmbAppName.SelectedIndex);
             if (AppMute)
-                lblAppMute.Text = "Yes";
-            else lblAppMute.Text = "No";
+                lblAppVolume.Text = "Mute";
+            else lblAppVolume.Text = AppVolume.ToString();
         }
 
         private void numericUpDown_VolumeSteps_ValueChanged(object sender, EventArgs e)
@@ -194,7 +196,7 @@ namespace AppVolumeHotkeys
                 return;
 
             var converter = new KeysConverter();
-            tbxVolUpHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
+            //tbxVolUpHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
 
             VolUpModifier = 0;
 
@@ -219,7 +221,7 @@ namespace AppVolumeHotkeys
                 return;
 
             var converter = new KeysConverter();
-            tbxVolDownHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
+            //tbxVolDownHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
 
             VolDownModifier = 0;
 
@@ -244,7 +246,7 @@ namespace AppVolumeHotkeys
                 return;
 
             var converter = new KeysConverter();
-            tbxMuteHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
+            //tbxMuteHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
 
             MuteModifier = 0;
 
@@ -265,7 +267,7 @@ namespace AppVolumeHotkeys
         private void tbxPTTHotkey_KeyUp(object sender, KeyEventArgs e)
         {
             var converter = new KeysConverter();
-            tbxPTTHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
+            //tbxPTTHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
 
             PTTHotkey = e.KeyData;
 
@@ -294,18 +296,18 @@ namespace AppVolumeHotkeys
             MuteModifier = Keys.None;
             PTTHotkey = Keys.None;
 
-            tbxVolUpHotkey.Text = "None";
-            tbxVolDownHotkey.Text = "None";
-            tbxMuteHotkey.Text = "None";
-            tbxPTTHotkey.Text = "None";
+            //tbxVolUpHotkey.Text = "None";
+            //tbxVolDownHotkey.Text = "None";
+            //tbxMuteHotkey.Text = "None";
+            //tbxPTTHotkey.Text = "None";
 
             button_SaveHotkeys_Click(sender, e);
         }
 
         private void timer_Refresh_Tick(object sender, EventArgs e)
         {
-            WriteVolumeLabel();
-            WriteMuteLabel();
+            //WriteVolumeValue();
+            //WriteMuteLabel();
         }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
@@ -335,10 +337,18 @@ namespace AppVolumeHotkeys
             if ((GetAsyncKeyState(PTTHotkey) & 0x8000) == 0)
             {
                 isPTTPressed = false;
-                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, 100);
+                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, AppVolume);
             }
 
         }
+
+        private void trackVolume_Scroll(object sender, EventArgs e)
+        {
+            AppVolume = trackVolume.Value;
+            volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, AppVolume);
+            WriteVolumeValue();
+        }
+
         private void nudSoftMuteLevel_ValueChanged(object sender, EventArgs e)
         {
             SoftMuteLevel = (int)nudSoftMuteLevel.Value;
@@ -367,12 +377,6 @@ namespace AppVolumeHotkeys
         {
             ToggleMute();
         }
-
-        private void itemAbout_Click(object sender, EventArgs e)
-        {
-            new AboutForm().Show();
-        }
-
         private void itemExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
