@@ -302,6 +302,13 @@ namespace AppVolumeHotkeys
             button_SaveHotkeys_Click(sender, e);
         }
 
+        /// <summary>
+        /// 이 함수에 버그가 있음
+        /// 새로운 구성요소인 슬라이드와 함께 사용되면 timer_Refresh_Tick에 의해 볼륨이 다시 복구되는 버그가 생김
+        /// 이 timer가 없어도 잘 동작함
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer_Refresh_Tick(object sender, EventArgs e)
         {
             WriteVolumeLabel();
