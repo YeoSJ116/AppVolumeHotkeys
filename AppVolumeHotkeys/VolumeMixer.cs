@@ -1,5 +1,6 @@
 ﻿using CSCore.CoreAudioAPI;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace AppVolumeHotkeys
 {
@@ -56,14 +57,28 @@ namespace AppVolumeHotkeys
             return audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().IsMuted;
         }
 
+        /// <summary>
+        /// 이 함수에 버그가 있음
+        /// 절전 상태에서 깨어나는 순간 마스터 볼륨에서 예외가 발생하게 됨.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="volume"></param>
         public void SetApplicationVolume(int index, int volume)
         {
-            if (volume <= 0)
-                audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = 0;
-            else if (volume >= 100)
-                audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = 1;
-            else
-                audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = volume / 100f;
+            try
+            {
+                if (volume <= 0)
+                    audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = 0;
+                else if (volume >= 100)
+                    audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = 1;
+                else
+                    audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = volume / 100f;
+            }
+            catch (System.Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
         }
 
         public void SetApplicationMute(int index, bool state)

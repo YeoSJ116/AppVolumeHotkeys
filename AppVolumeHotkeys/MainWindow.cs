@@ -134,6 +134,13 @@ namespace AppVolumeHotkeys
             cmbEndpoints.DataSource = volumeMixer.GetEndpointNames();
         }
 
+        /// <summary>
+        /// 이 함수에 버그가 있음
+        /// 기존 프로그램의 볼륨을 변경한 다음 다른 프로그램을 선택하면 해당 볼륨에도 영향을 줍니다.
+        /// 프로그램 선택이 바뀐 경우 이전에 설정된 볼륨을 사용하기 이전에 변경된 프로그램의 볼륨을 먼저 읽어야 합니다.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbAppName_SelectedIndexChanged(object sender, EventArgs e)
         {
             WriteVolumeValue();
@@ -170,6 +177,7 @@ namespace AppVolumeHotkeys
             AppVolume = volumeMixer.GetApplicationVolume(cmbAppName.SelectedIndex);
             lblAppVolume.Text = AppVolume.ToString();
             trackVolume.Value = AppVolume;
+            //볼륨 슬라이드에 AppVolume 값 반영 필요
         }
 
         public void WriteMuteLabel()
@@ -304,10 +312,17 @@ namespace AppVolumeHotkeys
             button_SaveHotkeys_Click(sender, e);
         }
 
+        /// <summary>
+        /// 이 함수에 버그가 있음
+        /// 새로운 구성요소인 슬라이드와 함께 사용되면 timer_Refresh_Tick에 의해 볼륨이 다시 복구되는 버그가 생김
+        /// 이 timer가 없어도 잘 동작함
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer_Refresh_Tick(object sender, EventArgs e)
         {
             //WriteVolumeValue();
-            //WriteMuteLabel();
+            //WriteVolumeLabel();
         }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
