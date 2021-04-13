@@ -318,8 +318,8 @@ namespace AppVolumeHotkeys
         /// <param name="e"></param>
         private void timer_Refresh_Tick(object sender, EventArgs e)
         {
-            WriteVolumeLabel();
-            WriteMuteLabel();
+            //WriteVolumeLabel();
+            //WriteMuteLabel();
         }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
