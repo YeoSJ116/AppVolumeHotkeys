@@ -1,5 +1,6 @@
 ﻿using CSCore.CoreAudioAPI;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace AppVolumeHotkeys
 {
@@ -64,12 +65,20 @@ namespace AppVolumeHotkeys
         /// <param name="volume"></param>
         public void SetApplicationVolume(int index, int volume)
         {
-            if (volume <= 0)
-                audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = 0;
-            else if (volume >= 100)
-                audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = 1;
-            else
-                audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = volume / 100f;
+            try
+            {
+                if (volume <= 0)
+                    audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = 0;
+                else if (volume >= 100)
+                    audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = 1;
+                else
+                    audioSessionEnumerator.GetSession(index).QueryInterface<SimpleAudioVolume>().MasterVolume = volume / 100f;
+            }
+            catch (System.Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
         }
 
         public void SetApplicationMute(int index, bool state)
