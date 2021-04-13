@@ -175,6 +175,7 @@ namespace AppVolumeHotkeys
         {
             AppVolume = volumeMixer.GetApplicationVolume(cmbAppName.SelectedIndex);
             lblAppVolume.Text = AppVolume.ToString();
+            //볼륨 슬라이드에 AppVolume 값 반영 필요
         }
 
         public void WriteMuteLabel()
