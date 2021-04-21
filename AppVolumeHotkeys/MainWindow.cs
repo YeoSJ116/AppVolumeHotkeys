@@ -422,5 +422,11 @@ namespace AppVolumeHotkeys
             UnregisterHotKey(this.Handle, 2);
             UnregisterHotKey(this.Handle, 3);
         }
+
+        ///////////////////////////////////////////////
+        private void updateKeyList()
+        {
+            //객체화 되지 않은 키 동작 메뉴(콤보박스)를 자동화 처리를 할 수 없으므로 하나씩 코드를 처리해야합니다.
+        }
     }
 }
