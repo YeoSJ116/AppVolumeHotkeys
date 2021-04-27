@@ -1,7 +1,11 @@
-![](https://i.imgur.com/Nu5LIFO.png)  
+<img align="center" src="https://daegu.ac.kr/resources/images/site/layout/header_logo.gif">
 
-![](https://img.shields.io/github/license/razorlikes/AppVolumeHotkeys)
-![](https://img.shields.io/github/downloads/razorlikes/AppVolumeHotkeys/total)  
+<center>Daegu university project report</center>
+
+[TOC]
+
+![](https://img.shields.io/github/license/yeosj116/AppVolumeHotkeys)
+![](https://img.shields.io/github/downloads/yeosj116/AppVolumeHotkeys/total)  
 
 > Control the volume of a single application through hotkeys.  
 
@@ -14,8 +18,6 @@ If you have any ideas or find any bugs, please open an issue.
 ## Getting Started
 
 ### Prerequisites
-
-<img align="right" src="https://i.imgur.com/dmeNEnr.png">
 
 To use AppVolumeHotkeys you only need:
 * A computer with at least Windows Vista
