@@ -50,48 +50,12 @@ namespace AppVolumeHotkeys.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys VolUpModifier {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["VolUpModifier"]));
-            }
-            set {
-                this["VolUpModifier"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys VolDownModifier {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["VolDownModifier"]));
-            }
-            set {
-                this["VolDownModifier"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
         public global::System.Windows.Forms.Keys MuteHotkey {
             get {
                 return ((global::System.Windows.Forms.Keys)(this["MuteHotkey"]));
             }
             set {
                 this["MuteHotkey"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys MuteModifier {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["MuteModifier"]));
-            }
-            set {
-                this["MuteModifier"] = value;
             }
         }
         
@@ -152,6 +116,42 @@ namespace AppVolumeHotkeys.Properties {
             }
             set {
                 this["PTTHotkey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        public global::System.Windows.Forms.Keys ComboKey {
+            get {
+                return ((global::System.Windows.Forms.Keys)(this["ComboKey"]));
+            }
+            set {
+                this["ComboKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double Keys {
+            get {
+                return ((double)(this["Keys"]));
+            }
+            set {
+                this["Keys"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string 설정 {
+            get {
+                return ((string)(this["설정"]));
+            }
+            set {
+                this["설정"] = value;
             }
         }
     }

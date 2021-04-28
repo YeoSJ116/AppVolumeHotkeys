@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -6,7 +7,9 @@ namespace AppVolumeHotkeys
 {
     public partial class MainWindow : Form
     {
-        Keys VolUpHotkey, VolDownHotkey, VolUpModifier, VolDownModifier, MuteHotkey, MuteModifier, PTTHotkey;
+        Keys VolUpHotkey, VolDownHotkey, MuteHotkey, PTTHotkey, ComboKey;
+        ComboBox[] KeyArry = new ComboBox[12];
+
         int VolumeSteps, AppVolume, SoftMuteLevel;
         bool AppMute;
         bool isPTTPressed = false;
@@ -30,11 +33,11 @@ namespace AppVolumeHotkeys
             notifyIcon.ContextMenuStrip = cmsTray;
 
             VolUpHotkey = Properties.Settings.Default.VolUpHotkey;
-            VolUpModifier = Properties.Settings.Default.VolUpModifier;
             VolDownHotkey = Properties.Settings.Default.VolDownHotkey;
-            VolDownModifier = Properties.Settings.Default.VolDownModifier;
             MuteHotkey = Properties.Settings.Default.MuteHotkey;
-            MuteModifier = Properties.Settings.Default.MuteModifier;
+
+            ComboKey = Properties.Settings.Default.ComboKey;
+
             VolumeSteps = Properties.Settings.Default.LastVolStep;
             SoftMuteLevel = Properties.Settings.Default.SoftMuteLevel;
             PTTHotkey = Properties.Settings.Default.PTTHotkey;
@@ -45,43 +48,37 @@ namespace AppVolumeHotkeys
             if (SoftMuteLevel != 0)
                 nudSoftMuteLevel.Value = SoftMuteLevel;
 
-            RegisterHotKey(this.Handle, 1, (int)VolUpModifier, (int)VolUpHotkey);
-            RegisterHotKey(this.Handle, 2, (int)VolDownModifier, (int)VolDownHotkey);
-            RegisterHotKey(this.Handle, 3, (int)MuteModifier, (int)MuteHotkey);
+            RegisterHotKey(this.Handle, 1, (int)ComboKey, (int)VolUpHotkey);
+            RegisterHotKey(this.Handle, 2, (int)ComboKey, (int)VolDownHotkey);
+            RegisterHotKey(this.Handle, 3, (int)ComboKey, (int)MuteHotkey);
 
             var converter = new KeysConverter();
+
+            switch ((int)ComboKey)
+            {
+                case (int)Keys.Alt:
+                    cmbComboKey.SelectedIndex = 0;
+                    break;
+                case (int)Keys.Shift:
+                    cmbComboKey.SelectedIndex = 1;
+                    break;
+                case (int)Keys.Control:
+                    cmbComboKey.SelectedIndex = 3;
+                    break;
+                default:
+                    MessageBox.Show("단축키의 조합키를 가져오는데 실패 했습니다.\n 기본 값인 Alt 값으로 재 설정 됩니다.");
+                    Properties.Settings.Default.ComboKey = Keys.Alt;
+                    Properties.Settings.Default.Save();
+                    cmbComboKey.SelectedIndex = 0;
+                    break;
+
+            }
             /*
-            tbxVolUpHotkey.Clear();
-            if (((int)VolUpModifier & 1) != 0)
-                tbxVolUpHotkey.AppendText("ALT+");
-            if (((int)VolUpModifier & 2) != 0)
-                tbxVolUpHotkey.AppendText("CTRL+");
-            if (((int)VolUpModifier & 4) != 0)
-                tbxVolUpHotkey.AppendText("SHIFT+");
             tbxVolUpHotkey.AppendText(converter.ConvertToString(VolUpHotkey));
-
-            tbxVolDownHotkey.Clear();
-            if (((int)VolDownModifier & 1) != 0)
-                tbxVolDownHotkey.AppendText("ALT+");
-            if (((int)VolDownModifier & 2) != 0)
-                tbxVolDownHotkey.AppendText("CTRL+");
-            if (((int)VolDownModifier & 4) != 0)
-                tbxVolDownHotkey.AppendText("SHIFT+");
             tbxVolDownHotkey.AppendText(converter.ConvertToString(VolDownHotkey));
-
-            tbxMuteHotkey.Clear();
-            if (((int)MuteModifier & 1) != 0)
-                tbxMuteHotkey.AppendText("ALT+");
-            if (((int)MuteModifier & 2) != 0)
-                tbxMuteHotkey.AppendText("CTRL+");
-            if (((int)MuteModifier & 4) != 0)
-                tbxMuteHotkey.AppendText("SHIFT+");
             tbxMuteHotkey.AppendText(converter.ConvertToString(MuteHotkey));
-
-            tbxPTTHotkey.Clear();
             tbxPTTHotkey.AppendText(converter.ConvertToString(PTTHotkey))
             */
-
             VolumeSteps = decimal.ToInt32(nudVolumeSteps.Value);
 
             volumeMixer = new VolumeMixer();
@@ -207,19 +204,12 @@ namespace AppVolumeHotkeys
             var converter = new KeysConverter();
             //tbxVolUpHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
 
-            VolUpModifier = 0;
-
-            if (e.Alt)
-                VolUpModifier += 1;
-            if (e.Control)
-                VolUpModifier += 2;
-            if (e.Shift)
-                VolUpModifier += 4;
+            cmbComboKeys2Keys();
 
             VolUpHotkey = e.KeyData ^ e.Modifiers;
 
             UnregisterHotKey(this.Handle, 1);
-            RegisterHotKey(this.Handle, 1, (int)VolUpModifier, (int)VolUpHotkey);
+            RegisterHotKey(this.Handle, 1, (int)ComboKey, (int)VolUpHotkey);
 
             lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
         }
@@ -232,19 +222,12 @@ namespace AppVolumeHotkeys
             var converter = new KeysConverter();
             //tbxVolDownHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
 
-            VolDownModifier = 0;
-
-            if (e.Alt)
-                VolDownModifier += 1;
-            if (e.Control)
-                VolDownModifier += 2;
-            if (e.Shift)
-                VolDownModifier += 4;
+            cmbComboKeys2Keys();
 
             VolDownHotkey = e.KeyData ^ e.Modifiers;
 
             UnregisterHotKey(this.Handle, 2);
-            RegisterHotKey(this.Handle, 2, (int)VolDownModifier, (int)VolDownHotkey);
+            RegisterHotKey(this.Handle, 2, (int)ComboKey, (int)VolDownHotkey);
 
             lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
         }
@@ -257,19 +240,12 @@ namespace AppVolumeHotkeys
             var converter = new KeysConverter();
             //tbxMuteHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
 
-            MuteModifier = 0;
-
-            if (e.Alt)
-                MuteModifier += 1;
-            if (e.Control)
-                MuteModifier += 2;
-            if (e.Shift)
-                MuteModifier += 4;
+            cmbComboKeys2Keys();
 
             MuteHotkey = e.KeyData ^ e.Modifiers;
 
             UnregisterHotKey(this.Handle, 3);
-            RegisterHotKey(this.Handle, 3, (int)MuteModifier, (int)MuteHotkey);
+            RegisterHotKey(this.Handle, 3, (int)ComboKey, (int)MuteHotkey);
 
             lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
         }
@@ -283,27 +259,48 @@ namespace AppVolumeHotkeys
             lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
         }
 
+        private Keys cmbComboKeys2Keys()
+        {
+            switch (cmbComboKey.SelectedIndex)
+            {
+                case 0:
+                    ComboKey = Keys.Alt;
+                    Debug.WriteLine("alt");
+                    break;
+                case 1:
+                    ComboKey = Keys.Shift;
+                    Debug.WriteLine("shift");
+                    break;
+                case 2:
+                    ComboKey = Keys.Control;
+                    Debug.WriteLine("ctrl");
+                    break;
+                default:
+                    ComboKey = Keys.Alt;
+                    Debug.WriteLine("alt - defualt");
+                    break;
+            }
+
+            return ComboKey;
+        }
+
         private void button_SaveHotkeys_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.VolUpHotkey = VolUpHotkey;
-            Properties.Settings.Default.VolUpModifier = VolUpModifier;
             Properties.Settings.Default.VolDownHotkey = VolDownHotkey;
-            Properties.Settings.Default.VolDownModifier = VolDownModifier;
             Properties.Settings.Default.MuteHotkey = MuteHotkey;
-            Properties.Settings.Default.MuteModifier = MuteModifier;
             Properties.Settings.Default.PTTHotkey = PTTHotkey;
+            Properties.Settings.Default.ComboKey = ComboKey;
             Properties.Settings.Default.Save();
         }
 
         private void button_ResetHotkeys_Click(object sender, EventArgs e)
         {
             VolUpHotkey = Keys.None;
-            VolUpModifier = Keys.None;
             VolDownHotkey = Keys.None;
-            VolDownModifier = Keys.None;
             MuteHotkey = Keys.None;
-            MuteModifier = Keys.None;
             PTTHotkey = Keys.None;
+            ComboKey = Keys.Alt;
 
             F1.SelectedIndex = 0;
             F2.SelectedIndex = 0;
@@ -360,7 +357,9 @@ namespace AppVolumeHotkeys
             if ((GetAsyncKeyState(PTTHotkey) & 0x8000) == 0)
             {
                 isPTTPressed = false;
-                volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, AppVolume);
+                volumeMixer.SetApplicationVolume(
+                    cmbAppName.SelectedIndex,
+                    AppVolume);
             }
 
         }

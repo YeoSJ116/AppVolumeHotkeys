@@ -8,16 +8,7 @@
     <Setting Name="VolDownHotkey" Type="System.Windows.Forms.Keys" Scope="User">
       <Value Profile="(Default)">None</Value>
     </Setting>
-    <Setting Name="VolUpModifier" Type="System.Windows.Forms.Keys" Scope="User">
-      <Value Profile="(Default)">None</Value>
-    </Setting>
-    <Setting Name="VolDownModifier" Type="System.Windows.Forms.Keys" Scope="User">
-      <Value Profile="(Default)">None</Value>
-    </Setting>
     <Setting Name="MuteHotkey" Type="System.Windows.Forms.Keys" Scope="User">
-      <Value Profile="(Default)">None</Value>
-    </Setting>
-    <Setting Name="MuteModifier" Type="System.Windows.Forms.Keys" Scope="User">
       <Value Profile="(Default)">None</Value>
     </Setting>
     <Setting Name="LastVolStep" Type="System.Int32" Scope="User">
@@ -33,6 +24,9 @@
       <Value Profile="(Default)">15</Value>
     </Setting>
     <Setting Name="PTTHotkey" Type="System.Windows.Forms.Keys" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="ComboKey" Type="System.Windows.Forms.Keys" Scope="User">
       <Value Profile="(Default)">None</Value>
     </Setting>
   </Settings>
