@@ -376,6 +376,12 @@ namespace AppVolumeHotkeys
         {
             SoftMuteLevel = (int)nudSoftMuteLevel.Value;
         }
+
+        private void comboKey_KeyUp(object sender, KeyEventArgs e)
+        {
+            comboKey.Text = e.KeyCode.ToString();
+        }
+
         private void nudSoftMuteLevel_KeyDown(object sender, KeyEventArgs e)
         {
             SoftMuteLevel = (int)nudSoftMuteLevel.Value;

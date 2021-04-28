@@ -49,7 +49,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel13 = new System.Windows.Forms.Panel();
             this.trackVolume = new System.Windows.Forms.TrackBar();
-            this.cmbComboKey = new System.Windows.Forms.ComboBox();
             this.panel9 = new System.Windows.Forms.Panel();
             this.F12 = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -95,6 +94,7 @@
             this.nudSoftMuteLevel = new System.Windows.Forms.NumericUpDown();
             this.label_SoftMuteSteps = new System.Windows.Forms.Label();
             this.groupBox_Settings = new System.Windows.Forms.GroupBox();
+            this.comboKey = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.lnkCostura = new System.Windows.Forms.LinkLabel();
@@ -104,8 +104,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.cmsTray.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -266,8 +264,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboKey);
             this.groupBox1.Controls.Add(this.panel13);
-            this.groupBox1.Controls.Add(this.cmbComboKey);
             this.groupBox1.Controls.Add(this.label_Description4);
             this.groupBox1.Controls.Add(this.panel9);
             this.groupBox1.Controls.Add(this.lblAppVolume);
@@ -307,18 +305,6 @@
             this.trackVolume.TabIndex = 26;
             this.trackVolume.Value = 100;
             this.trackVolume.Scroll += new System.EventHandler(this.trackVolume_Scroll);
-            // 
-            // cmbComboKey
-            // 
-            this.cmbComboKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbComboKey.DropDownWidth = 206;
-            this.cmbComboKey.FormattingEnabled = true;
-            this.cmbComboKey.Location = new System.Drawing.Point(739, 87);
-            this.cmbComboKey.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cmbComboKey.Name = "cmbComboKey";
-            this.cmbComboKey.Size = new System.Drawing.Size(89, 20);
-            this.cmbComboKey.TabIndex = 25;
-            this.cmbComboKey.TabStop = false;
             // 
             // panel9
             // 
@@ -471,7 +457,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(652, 92);
+            this.label3.Location = new System.Drawing.Point(642, 92);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 12);
             this.label3.TabIndex = 16;
@@ -867,8 +853,6 @@
             // 
             // groupBox_Settings
             // 
-            this.groupBox_Settings.Controls.Add(this.textBox1);
-            this.groupBox_Settings.Controls.Add(this.label20);
             this.groupBox_Settings.Controls.Add(this.label19);
             this.groupBox_Settings.Controls.Add(this.label17);
             this.groupBox_Settings.Controls.Add(this.label_SoftMuteSteps);
@@ -889,6 +873,14 @@
             this.groupBox_Settings.TabIndex = 2;
             this.groupBox_Settings.TabStop = false;
             this.groupBox_Settings.Text = "Settings";
+            // 
+            // comboKey
+            // 
+            this.comboKey.Location = new System.Drawing.Point(725, 87);
+            this.comboKey.Name = "comboKey";
+            this.comboKey.Size = new System.Drawing.Size(103, 21);
+            this.comboKey.TabIndex = 28;
+            this.comboKey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboKey_KeyUp);
             // 
             // label19
             // 
@@ -975,22 +967,6 @@
             this.label18.Text = "Program volume controller v0.0.1U (Univ. report)\r\nCopyright (c) 2021 by \"Yeo Sang" +
     "-Jun (YeoSJ116)\".\r\nForked on \"razorlikes/AppVolumeHotkeys\"\r\nReleased under the M" +
     "IT License.\r\n\r\nOpen source licenses:";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(9, 93);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(51, 24);
-            this.label20.TabIndex = 27;
-            this.label20.Text = "Key test\r\n(Debug)";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(66, 94);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(111, 21);
-            this.textBox1.TabIndex = 28;
             // 
             // MainWindow
             // 
@@ -1129,13 +1105,11 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.ComboBox cmbComboKey;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.TrackBar trackVolume;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox comboKey;
     }
 }
 
