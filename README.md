@@ -12,10 +12,6 @@
 
 ![](https://github.com/YeoSJ116/AppVolumeHotkeys/blob/master/screenshot.PNG?raw=true)
 
-# Program volume controller
-
-[TOC]
-
 
 
 ## 프로그램 소개
