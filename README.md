@@ -4,16 +4,14 @@
     Daegu university project report </br>
     대학 프로젝트 과제입니다.
 </center>
-
 ![](https://img.shields.io/github/license/yeosj116/AppVolumeHotkeys)
-![](https://img.shields.io/github/downloads/yeosj116/AppVolumeHotkeys/total)  
+![](https://img.shields.io/github/downloads/yeosj116/AppVolumeHotkeys/total)
 
 > 사용자 지정 단축키를 사용하여 하나의 프로그램 볼륨을 세부적으로 조절을 할 수 있습니다.
 
 ## 프로그램 소개
 단축키를 통해 Windows 볼륨 믹서에있는 모든 응용 프로그램의 볼륨을 개별적으로 제어 할 수 있습니다.
 예를 들어, 게임 하는 동안 게임 창을 닫지 않고도 게임 볼륨은 그대로 유지한 상태에서 음악 플레이어의 소리를 낮출 수 있습니다.
-
 아이디어가 있거나 버그를 찾으면 Github의 issue에 등록해 주세요.
 
 ## 프로그램 시작하기
@@ -26,9 +24,7 @@
 
 ### 설치 방법
 exe 파일을 다운로드 받은 뒤 프로그램을 실행하면 됩니다.
-
 또는 소스코드를 다운 받아 빌드 한 다음 exe 파일을 실행해도 됩니다.
-
 매 사용마다 프로그램을 켜지게 하고 싶다면 Windows 시작 프로그램에 등록해 주세요.
 
 ### 사용 방법
@@ -47,5 +43,4 @@ Program 드롭다운 메뉴에서 원하는 프로그램을 선택하고 단축�
 
 ## MIT 라이센스
 본 프로젝트는 MIT 라이센스를 부여 받았습니다. 세부적인 사항은 [LICENSE](LICENSE) 파일을 참조해 주세요.
-
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
