@@ -143,6 +143,7 @@ namespace AppVolumeHotkeys
         /// <param name="e"></param>
         private void cmbAppName_SelectedIndexChanged(object sender, EventArgs e)
         {
+            volumeMixer.SetEndpoint(cmbEndpoints.SelectedIndex);
             WriteVolumeValue();
             WriteMuteLabel();
         }
@@ -175,6 +176,7 @@ namespace AppVolumeHotkeys
         public void WriteVolumeValue()
         {
             AppVolume = volumeMixer.GetApplicationVolume(cmbAppName.SelectedIndex);
+            //Console.WriteLine(AppVolume +"  "+ cmbAppName.SelectedIndex);
             lblAppVolume.Text = AppVolume.ToString();
             trackVolume.Value = AppVolume;
         }
@@ -303,11 +305,18 @@ namespace AppVolumeHotkeys
             MuteModifier = Keys.None;
             PTTHotkey = Keys.None;
 
-            //tbxVolUpHotkey.Text = "None";
-            //tbxVolDownHotkey.Text = "None";
-            //tbxMuteHotkey.Text = "None";
-            //tbxPTTHotkey.Text = "None";
-
+            F1.SelectedIndex = 0;
+            F2.SelectedIndex = 0;
+            F3.SelectedIndex = 0;
+            F4.SelectedIndex = 0;
+            F5.SelectedIndex = 0;
+            F6.SelectedIndex = 0;
+            F7.SelectedIndex = 0;
+            F8.SelectedIndex = 0;
+            F9.SelectedIndex = 1;
+            F10.SelectedIndex = 3;
+            F11.SelectedIndex = 2;
+            F12.SelectedIndex = 4;
             button_SaveHotkeys_Click(sender, e);
         }
 
@@ -332,8 +341,8 @@ namespace AppVolumeHotkeys
         private void notifyIcon_MouseMove(object sender, MouseEventArgs e)
         {
             if (AppMute)
-                notifyIcon.Text = "AppVolumeHotkeys\nVolume: " + AppVolume.ToString() + " | Mute: Yes";
-            else notifyIcon.Text = "AppVolumeHotkeys\nVolume: " + AppVolume.ToString() + " | Mute: No";
+                notifyIcon.Text = "Program volume controller\n볼륨: " + AppVolume.ToString() + " | 음소거됨";
+            else notifyIcon.Text = "Program volume controller\n볼륨: " + AppVolume.ToString();
         }
 
         private void itemOpen_Click(object sender, EventArgs e)
@@ -407,9 +416,9 @@ namespace AppVolumeHotkeys
             {
                 this.Hide();
 
-                if (Properties.Settings.Default.FirstNotification)
+                if (!Properties.Settings.Default.FirstNotification)
                 {
-                    notifyIcon.ShowBalloonTip(5, string.Empty, "AppVolumeHotkeys will stay open in the background when you close the window, rightclick on the tray icon and select 'Exit' to close it.", ToolTipIcon.None);
+                    notifyIcon.ShowBalloonTip(5, string.Empty, "창을 닫아도 볼륨 조절 프로그램은 여전히 백그라운드로 실행되고 있습니다. 종료를 원하시면 Tray아이콘 영역에서 우클릭 후 Exit 메뉴를 클릭해 주세요.", ToolTipIcon.None);
                     Properties.Settings.Default.FirstNotification = false;
                     Properties.Settings.Default.Save();
                 }
