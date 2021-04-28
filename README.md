@@ -4,9 +4,6 @@
     Daegu university project report </br>
     대학 프로젝트 과제입니다.
 </center>
-
-
-
 ![](https://img.shields.io/github/license/yeosj116/AppVolumeHotkeys)
 ![](https://img.shields.io/github/downloads/yeosj116/AppVolumeHotkeys/total)  
 
