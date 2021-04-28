@@ -11,11 +11,13 @@ namespace AppVolumeHotkeys
         Keys[] keyID = new Keys[12];
         byte[] hotkeys = new byte[12];
         ComboBox[] KeyArry = new ComboBox[12];
+        const int HOTKEY_PORT = 153;
 
         enum ComboID{
             Alt = 0,
             Shift = 1,
-            Ctrl = 2
+            Ctrl = 2,
+            non = 3
         }
         enum FnID
         {
@@ -33,7 +35,7 @@ namespace AppVolumeHotkeys
         VolumeMixer volumeMixer;
 
         [DllImport("user32.dll")]
-        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
+        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, Keys vk);
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
         [DllImport("user32.dll")]
@@ -109,8 +111,6 @@ namespace AppVolumeHotkeys
                 }
             }
 
-            hotkeyRegist();
-
             var converter = new KeysConverter();
 
             switch ((int)ComboKey)
@@ -125,10 +125,10 @@ namespace AppVolumeHotkeys
                     cmbComboKey.SelectedIndex = (int)ComboID.Ctrl;
                     break;
                 default:
-                    MessageBox.Show("단축키의 조합키를 가져오는데 실패 했습니다.\n 기본 값인 Alt 값으로 재 설정 됩니다.");
-                    Properties.Settings.Default.ComboKey = Keys.Alt;
+                    MessageBox.Show("단축키의 조합키를 가져오는데 실패 했습니다.\n 기본 값인 non 값으로 재 설정 됩니다.");
+                    Properties.Settings.Default.ComboKey = Keys.None;
                     Properties.Settings.Default.Save();
-                    cmbComboKey.SelectedIndex = 0;
+                    cmbComboKey.SelectedIndex = (int)ComboID.non;
                     break;
             }
 
@@ -157,19 +157,46 @@ namespace AppVolumeHotkeys
 
             if (cmbEndpoints.FindStringExact(Properties.Settings.Default.LastEndpointName) != -1)
                 cmbEndpoints.SelectedIndex = cmbEndpoints.FindStringExact(Properties.Settings.Default.LastEndpointName);
+
+            hotkeyRegist();
+            for (int i = 0; i < 12; i++)
+            {
+                KeyArry[i].SelectedIndexChanged += updateKeyList;
+            }
+            cmbComboKey.SelectedIndexChanged += cmbComboKey_SelectedIndexChanged;
         }
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == WM_HOTKEY && (int)m.WParam == 1)
-                VolumeUp();
-
-            if (m.Msg == WM_HOTKEY && (int)m.WParam == 2)
-                VolumeDown();
-
-            if (m.Msg == WM_HOTKEY && (int)m.WParam == 3)
+            if (m.Msg == WM_HOTKEY)
             {
-                ToggleMute();
+                Debug.WriteLine("WM_HOTKEY" + ((int)m.WParam - HOTKEY_PORT));
+                try
+                {
+                    switch (KeyArry[(int)m.WParam - HOTKEY_PORT].SelectedIndex)
+                    {
+                        case (int)FnID.up:
+                            Debug.WriteLine("Hotkey up");
+                            VolumeUp();
+                            break;
+                        case (int)FnID.down:
+                            Debug.WriteLine("Hotkey down");
+                            VolumeDown();
+                            break;
+                        case (int)FnID.mute:
+                            Debug.WriteLine("Hotkey mute");
+                            ToggleMute();
+                            break;
+                        default:
+                            Debug.WriteLine("Hotkey throw");
+                            break;
+                    }
+                }
+                catch
+                {
+                    Debug.WriteLine("out of range hotkeys");
+                }
+                
             }
 
             base.WndProc(ref m);
@@ -229,6 +256,7 @@ namespace AppVolumeHotkeys
             //Debug.WriteLine("Volume: " + AppVolume +"\t"+ cmbAppName.SelectedIndex);
             lblAppVolume.Text = AppVolume.ToString();
             trackVolume.Value = AppVolume;
+            WriteMuteLabel();
         }
 
         public void WriteMuteLabel()
@@ -312,7 +340,8 @@ namespace AppVolumeHotkeys
 
         private void button_ResetHotkeys_Click(object sender, EventArgs e)
         {
-            ComboKey = Keys.Alt;
+            ComboKey = Keys.None;
+            cmbComboKey.SelectedIndex = (int)ComboID.non;
 
             F1.SelectedIndex = (int)FnID.non;
             F2.SelectedIndex = (int)FnID.non;
@@ -322,10 +351,10 @@ namespace AppVolumeHotkeys
             F6.SelectedIndex = (int)FnID.non;
             F7.SelectedIndex = (int)FnID.non;
             F8.SelectedIndex = (int)FnID.non;
-            F9.SelectedIndex = (int)FnID.ptt;
-            F10.SelectedIndex = (int)FnID.down;
-            F11.SelectedIndex = (int)FnID.mute;
-            F12.SelectedIndex = (int)FnID.up;
+            F9.SelectedIndex = (int)FnID.down;
+            F10.SelectedIndex = (int)FnID.mute;
+            F11.SelectedIndex = (int)FnID.up;
+            F12.SelectedIndex = (int)FnID.ptt;
 
             updateKeyList();
 
@@ -431,7 +460,7 @@ namespace AppVolumeHotkeys
             {
                 this.Hide();
 
-                if (!Properties.Settings.Default.FirstNotification)
+                if (Properties.Settings.Default.FirstNotification)
                 {
                     notifyIcon.ShowBalloonTip(5, string.Empty, "창을 닫아도 볼륨 조절 프로그램은 여전히 백그라운드로 실행되고 있습니다. 종료를 원하시면 Tray아이콘 영역에서 우클릭 후 Exit 메뉴를 클릭해 주세요.", ToolTipIcon.None);
                     Properties.Settings.Default.FirstNotification = false;
@@ -457,20 +486,46 @@ namespace AppVolumeHotkeys
             hotkeyRegist();
         }
 
+        private void cmbComboKey_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void hotkeyRegist()
         {
+            int combokey_t = 0; //combo key 없음
+            switch (ComboKey)
+            {
+                case Keys.Alt:
+                    combokey_t = 1;
+                    Debug.WriteLine("Combo key convert to Alt");
+                    break;
+                case Keys.Shift:
+                    combokey_t = 4;
+                    Debug.WriteLine("Combo key convert to Shift");
+                    break;
+                case Keys.Control:
+                    combokey_t = 2;
+                    Debug.WriteLine("Combo key convert to Ctrl");
+                    break;
+                default:
+                    break;  
+            }
             for (int i = 0; i < 12; i++)
             {
                 switch (KeyArry[i].SelectedIndex)
                 {
                     case (int)FnID.up:
-                        RegisterHotKey(this.Handle, i, (int)ComboKey, (int)keyID[i]);
+                        RegisterHotKey(this.Handle, i + HOTKEY_PORT, combokey_t, keyID[i]);
+                        Debug.WriteLine(keyID[i].ToString() + "\t" + (i+1) + "\tRegisted up");
                         break;
                     case (int)FnID.down:
-                        RegisterHotKey(this.Handle, i, (int)ComboKey, (int)keyID[i]);
+                        RegisterHotKey(this.Handle, i + HOTKEY_PORT, combokey_t, keyID[i]);
+                        Debug.WriteLine(keyID[i].ToString() + "\t" + (i+1) + "\tRegisted down");
                         break;
                     case (int)FnID.mute:
-                        RegisterHotKey(this.Handle, i, (int)ComboKey, (int)keyID[i]);
+                        RegisterHotKey(this.Handle, i + HOTKEY_PORT, combokey_t, keyID[i]);
+                        Debug.WriteLine(keyID[i].ToString() + "\t" + (i+1) + "\tRegisted mute");
                         break;
                     case (int)FnID.ptt:
                         break;
@@ -484,7 +539,8 @@ namespace AppVolumeHotkeys
         {
             for (int i = 0; i < 12; i++)
             {
-                UnregisterHotKey(this.Handle, i);
+                UnregisterHotKey(this.Handle, i + HOTKEY_PORT);
+                Debug.WriteLine("Un regist F" + (i+1));
             }
         }
 

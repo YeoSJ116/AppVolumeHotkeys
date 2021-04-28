@@ -314,7 +314,8 @@
             this.cmbComboKey.Items.AddRange(new object[] {
             "Alt",
             "Shift",
-            "Ctrl"});
+            "Ctrl",
+            "No combo"});
             this.cmbComboKey.Location = new System.Drawing.Point(739, 87);
             this.cmbComboKey.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbComboKey.Name = "cmbComboKey";
