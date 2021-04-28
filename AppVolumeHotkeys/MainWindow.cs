@@ -7,9 +7,24 @@ namespace AppVolumeHotkeys
 {
     public partial class MainWindow : Form
     {
-        Keys VolUpHotkey, VolDownHotkey, MuteHotkey, PTTHotkey, ComboKey;
+        Keys ComboKey;
+        Keys[] keyID = new Keys[12];
+        byte[] hotkeys = new byte[12];
         ComboBox[] KeyArry = new ComboBox[12];
 
+        enum ComboID{
+            Alt = 0,
+            Shift = 1,
+            Ctrl = 2
+        }
+        enum FnID
+        {
+            non = 0,
+            ptt = 1,
+            mute = 2,
+            down = 3,
+            up = 4
+        }
         int VolumeSteps, AppVolume, SoftMuteLevel;
         bool AppMute;
         bool isPTTPressed = false;
@@ -29,41 +44,103 @@ namespace AppVolumeHotkeys
         public MainWindow()
         {
             InitializeComponent();
-
+            
             notifyIcon.ContextMenuStrip = cmsTray;
-
-            VolUpHotkey = Properties.Settings.Default.VolUpHotkey;
-            VolDownHotkey = Properties.Settings.Default.VolDownHotkey;
-            MuteHotkey = Properties.Settings.Default.MuteHotkey;
 
             ComboKey = Properties.Settings.Default.ComboKey;
 
             VolumeSteps = Properties.Settings.Default.LastVolStep;
-            SoftMuteLevel = Properties.Settings.Default.SoftMuteLevel;
-            PTTHotkey = Properties.Settings.Default.PTTHotkey;
-
             if (VolumeSteps != 0)
                 nudVolumeSteps.Value = VolumeSteps;
 
+            SoftMuteLevel = Properties.Settings.Default.SoftMuteLevel;
             if (SoftMuteLevel != 0)
                 nudSoftMuteLevel.Value = SoftMuteLevel;
 
-            RegisterHotKey(this.Handle, 1, (int)ComboKey, (int)VolUpHotkey);
-            RegisterHotKey(this.Handle, 2, (int)ComboKey, (int)VolDownHotkey);
-            RegisterHotKey(this.Handle, 3, (int)ComboKey, (int)MuteHotkey);
+            KeyArry[0] = F1;
+            KeyArry[1] = F2;
+            KeyArry[2] = F3;
+            KeyArry[3] = F4;
+            KeyArry[4] = F5;
+            KeyArry[5] = F6;
+            KeyArry[6] = F7;
+            KeyArry[7] = F8;
+            KeyArry[8] = F9;
+            KeyArry[9] = F10;
+            KeyArry[10] = F11;
+            KeyArry[11] = F12;
+
+            keyID[0] = Keys.F1;
+            keyID[1] = Keys.F2;
+            keyID[2] = Keys.F3;
+            keyID[3] = Keys.F4;
+            keyID[4] = Keys.F5;
+            keyID[5] = Keys.F6;
+            keyID[6] = Keys.F7;
+            keyID[7] = Keys.F8;
+            keyID[8] = Keys.F9;
+            keyID[9] = Keys.F10;
+            keyID[10] = Keys.F11;
+            keyID[11] = Keys.F12;
+
+            //Double 형태로 저장된 레이아웃 불러오기
+            Double rawKeys = Properties.Settings.Default.Keys;
+            Double mask = 100000000000;
+            for (int i = 11; i >= 0; i--) {
+                hotkeys[i] = (byte)(rawKeys / mask);
+                rawKeys = rawKeys % mask;
+                
+                mask = mask / 10;
+            }
+
+            //단축키 레이아웃 불러오기
+            for (int i = 0; i < 12; i++)
+            {
+                try
+                {
+                    KeyArry[i].SelectedIndex = hotkeys[i];
+                }
+                catch
+                {
+                    MessageBox.Show("잘못된 단축키 레이아웃 입니다.\n이전 레이아웃 데이터는 손실 됩니다.");
+                    Properties.Settings.Default.Keys = 0;
+                    Properties.Settings.Default.Save();
+                    break;
+                }
+            }
+
+            for (int i = 0; i < 12; i++)
+            {
+                switch (KeyArry[i].SelectedIndex)
+                {
+                    case (int)FnID.up:
+                        RegisterHotKey(this.Handle, (int)FnID.up, (int)ComboKey, (int)keyID[i]);
+                        break;
+                    case (int)FnID.down:
+                        RegisterHotKey(this.Handle, (int)FnID.down, (int)ComboKey, (int)keyID[i]);
+                        break;
+                    case (int)FnID.mute:
+                        RegisterHotKey(this.Handle, (int)FnID.mute, (int)ComboKey, (int)keyID[i]);
+                        break;
+                    case (int)FnID.ptt:
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             var converter = new KeysConverter();
 
             switch ((int)ComboKey)
             {
                 case (int)Keys.Alt:
-                    cmbComboKey.SelectedIndex = 0;
+                    cmbComboKey.SelectedIndex = (int)ComboID.Alt;
                     break;
                 case (int)Keys.Shift:
-                    cmbComboKey.SelectedIndex = 1;
+                    cmbComboKey.SelectedIndex = (int)ComboID.Shift;
                     break;
                 case (int)Keys.Control:
-                    cmbComboKey.SelectedIndex = 3;
+                    cmbComboKey.SelectedIndex = (int)ComboID.Ctrl;
                     break;
                 default:
                     MessageBox.Show("단축키의 조합키를 가져오는데 실패 했습니다.\n 기본 값인 Alt 값으로 재 설정 됩니다.");
@@ -71,12 +148,12 @@ namespace AppVolumeHotkeys
                     Properties.Settings.Default.Save();
                     cmbComboKey.SelectedIndex = 0;
                     break;
-
             }
             /*
             tbxVolUpHotkey.AppendText(converter.ConvertToString(VolUpHotkey));
             tbxVolDownHotkey.AppendText(converter.ConvertToString(VolDownHotkey));
             tbxMuteHotkey.AppendText(converter.ConvertToString(MuteHotkey));
+
             tbxPTTHotkey.AppendText(converter.ConvertToString(PTTHotkey))
             */
             VolumeSteps = decimal.ToInt32(nudVolumeSteps.Value);
@@ -104,6 +181,11 @@ namespace AppVolumeHotkeys
 
             if (cmbEndpoints.FindStringExact(Properties.Settings.Default.LastEndpointName) != -1)
                 cmbEndpoints.SelectedIndex = cmbEndpoints.FindStringExact(Properties.Settings.Default.LastEndpointName);
+        }
+
+        private void hotkeyRegist()
+        {
+
         }
 
         protected override void WndProc(ref Message m)
@@ -196,65 +278,12 @@ namespace AppVolumeHotkeys
             VolumeSteps = (int)nudVolumeSteps.Value;
         }
 
-        private void textBox_VolUpHotkey_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (((int)(e.KeyData ^ e.Modifiers) == 16) || ((int)(e.KeyData ^ e.Modifiers) == 17) || ((int)(e.KeyData ^ e.Modifiers) == 18))
-                return;
-
-            var converter = new KeysConverter();
-            //tbxVolUpHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
-
-            cmbComboKeys2Keys();
-
-            VolUpHotkey = e.KeyData ^ e.Modifiers;
-
-            UnregisterHotKey(this.Handle, 1);
-            RegisterHotKey(this.Handle, 1, (int)ComboKey, (int)VolUpHotkey);
-
-            lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
-        }
-
-        private void textBox_VolDownHotkey_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (((int)(e.KeyData ^ e.Modifiers) == 16) || ((int)(e.KeyData ^ e.Modifiers) == 17) || ((int)(e.KeyData ^ e.Modifiers) == 18))
-                return;
-
-            var converter = new KeysConverter();
-            //tbxVolDownHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
-
-            cmbComboKeys2Keys();
-
-            VolDownHotkey = e.KeyData ^ e.Modifiers;
-
-            UnregisterHotKey(this.Handle, 2);
-            RegisterHotKey(this.Handle, 2, (int)ComboKey, (int)VolDownHotkey);
-
-            lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
-        }
-
-        private void textBox_MuteHotkey_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (((int)(e.KeyData ^ e.Modifiers) == 16) || ((int)(e.KeyData ^ e.Modifiers) == 17) || ((int)(e.KeyData ^ e.Modifiers) == 18))
-                return;
-
-            var converter = new KeysConverter();
-            //tbxMuteHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
-
-            cmbComboKeys2Keys();
-
-            MuteHotkey = e.KeyData ^ e.Modifiers;
-
-            UnregisterHotKey(this.Handle, 3);
-            RegisterHotKey(this.Handle, 3, (int)ComboKey, (int)MuteHotkey);
-
-            lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
-        }
         private void tbxPTTHotkey_KeyUp(object sender, KeyEventArgs e)
         {
             var converter = new KeysConverter();
             //tbxPTTHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
 
-            PTTHotkey = e.KeyData;
+            ////////////////////PTTHotkey = e.KeyData;
 
             lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
         }
@@ -286,20 +315,20 @@ namespace AppVolumeHotkeys
 
         private void button_SaveHotkeys_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.VolUpHotkey = VolUpHotkey;
-            Properties.Settings.Default.VolDownHotkey = VolDownHotkey;
-            Properties.Settings.Default.MuteHotkey = MuteHotkey;
-            Properties.Settings.Default.PTTHotkey = PTTHotkey;
+            //////////Properties.Settings.Default.VolUpHotkey = VolUpHotkey;
+            /////////////Properties.Settings.Default.VolDownHotkey = VolDownHotkey;
+            ////////////////Properties.Settings.Default.MuteHotkey = MuteHotkey;
+            ///////////////Properties.Settings.Default.PTTHotkey = PTTHotkey;
             Properties.Settings.Default.ComboKey = ComboKey;
             Properties.Settings.Default.Save();
         }
 
         private void button_ResetHotkeys_Click(object sender, EventArgs e)
         {
-            VolUpHotkey = Keys.None;
-            VolDownHotkey = Keys.None;
-            MuteHotkey = Keys.None;
-            PTTHotkey = Keys.None;
+            ////////VolUpHotkey = Keys.None;
+            /////////VolDownHotkey = Keys.None;
+            ////////////MuteHotkey = Keys.None;
+            /////////////PTTHotkey = Keys.None;
             ComboKey = Keys.Alt;
 
             F1.SelectedIndex = 0;
@@ -349,6 +378,7 @@ namespace AppVolumeHotkeys
 
         private void timer_ptt_Tick(object sender, EventArgs e)
         {
+            /*
             if ((GetAsyncKeyState(PTTHotkey) & 0x8000) != 0 && !isPTTPressed)
             {
                 volumeMixer.SetApplicationVolume(cmbAppName.SelectedIndex, (int)nudSoftMuteLevel.Value);
@@ -361,7 +391,7 @@ namespace AppVolumeHotkeys
                     cmbAppName.SelectedIndex,
                     AppVolume);
             }
-
+            */
         }
 
         private void trackVolume_Scroll(object sender, EventArgs e)
