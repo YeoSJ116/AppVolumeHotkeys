@@ -109,25 +109,7 @@ namespace AppVolumeHotkeys
                 }
             }
 
-            for (int i = 0; i < 12; i++)
-            {
-                switch (KeyArry[i].SelectedIndex)
-                {
-                    case (int)FnID.up:
-                        RegisterHotKey(this.Handle, (int)FnID.up, (int)ComboKey, (int)keyID[i]);
-                        break;
-                    case (int)FnID.down:
-                        RegisterHotKey(this.Handle, (int)FnID.down, (int)ComboKey, (int)keyID[i]);
-                        break;
-                    case (int)FnID.mute:
-                        RegisterHotKey(this.Handle, (int)FnID.mute, (int)ComboKey, (int)keyID[i]);
-                        break;
-                    case (int)FnID.ptt:
-                        break;
-                    default:
-                        break;
-                }
-            }
+            hotkeyRegist();
 
             var converter = new KeysConverter();
 
@@ -149,13 +131,7 @@ namespace AppVolumeHotkeys
                     cmbComboKey.SelectedIndex = 0;
                     break;
             }
-            /*
-            tbxVolUpHotkey.AppendText(converter.ConvertToString(VolUpHotkey));
-            tbxVolDownHotkey.AppendText(converter.ConvertToString(VolDownHotkey));
-            tbxMuteHotkey.AppendText(converter.ConvertToString(MuteHotkey));
 
-            tbxPTTHotkey.AppendText(converter.ConvertToString(PTTHotkey))
-            */
             VolumeSteps = decimal.ToInt32(nudVolumeSteps.Value);
 
             volumeMixer = new VolumeMixer();
@@ -181,11 +157,6 @@ namespace AppVolumeHotkeys
 
             if (cmbEndpoints.FindStringExact(Properties.Settings.Default.LastEndpointName) != -1)
                 cmbEndpoints.SelectedIndex = cmbEndpoints.FindStringExact(Properties.Settings.Default.LastEndpointName);
-        }
-
-        private void hotkeyRegist()
-        {
-
         }
 
         protected override void WndProc(ref Message m)
@@ -255,7 +226,7 @@ namespace AppVolumeHotkeys
         public void WriteVolumeValue()
         {
             AppVolume = volumeMixer.GetApplicationVolume(cmbAppName.SelectedIndex);
-            //Console.WriteLine(AppVolume +"  "+ cmbAppName.SelectedIndex);
+            //Debug.WriteLine("Volume: " + AppVolume +"\t"+ cmbAppName.SelectedIndex);
             lblAppVolume.Text = AppVolume.ToString();
             trackVolume.Value = AppVolume;
         }
@@ -278,29 +249,19 @@ namespace AppVolumeHotkeys
             VolumeSteps = (int)nudVolumeSteps.Value;
         }
 
-        private void tbxPTTHotkey_KeyUp(object sender, KeyEventArgs e)
-        {
-            var converter = new KeysConverter();
-            //tbxPTTHotkey.Text = converter.ConvertToString(e.KeyData).ToUpper();
-
-            ////////////////////PTTHotkey = e.KeyData;
-
-            lblAppVolume.Focus(); //dirty workaround to remove focus from textbox after setting hotkey
-        }
-
         private Keys cmbComboKeys2Keys()
         {
             switch (cmbComboKey.SelectedIndex)
             {
-                case 0:
+                case (int)ComboID.Alt:
                     ComboKey = Keys.Alt;
                     Debug.WriteLine("alt");
                     break;
-                case 1:
+                case (int)ComboID.Shift:
                     ComboKey = Keys.Shift;
                     Debug.WriteLine("shift");
                     break;
-                case 2:
+                case (int)ComboID.Ctrl:
                     ComboKey = Keys.Control;
                     Debug.WriteLine("ctrl");
                     break;
@@ -312,37 +273,62 @@ namespace AppVolumeHotkeys
 
             return ComboKey;
         }
+        private void keys2cmbComboKeys()
+        {
+            switch (ComboKey)
+            {
+                case Keys.Alt:
+                    cmbComboKey.SelectedIndex = (int)ComboID.Alt;
+                    Debug.WriteLine("k2c alt");
+                    break;
+                case Keys.Shift:
+                    cmbComboKey.SelectedIndex = (int)ComboID.Shift;
+                    Debug.WriteLine("k2c shift");
+                    break;
+                case Keys.Control:
+                    cmbComboKey.SelectedIndex = (int)ComboID.Ctrl;
+                    Debug.WriteLine("k2c ctrl");
+                    break;
+                default:
+                    ComboKey = Keys.Alt;
+                    Debug.WriteLine("k2c alt - defualt");
+                    break;
+            }
+        }
 
         private void button_SaveHotkeys_Click(object sender, EventArgs e)
         {
-            //////////Properties.Settings.Default.VolUpHotkey = VolUpHotkey;
-            /////////////Properties.Settings.Default.VolDownHotkey = VolDownHotkey;
-            ////////////////Properties.Settings.Default.MuteHotkey = MuteHotkey;
-            ///////////////Properties.Settings.Default.PTTHotkey = PTTHotkey;
+            Double rawHotKeys = 0;
+            Double mask = 1;
+            for (int i = 0; i < 12; i++)
+            {
+                rawHotKeys += hotkeys[i] * mask;
+                mask *= 10;
+            }
+            Properties.Settings.Default.Keys = rawHotKeys;
             Properties.Settings.Default.ComboKey = ComboKey;
             Properties.Settings.Default.Save();
         }
 
         private void button_ResetHotkeys_Click(object sender, EventArgs e)
         {
-            ////////VolUpHotkey = Keys.None;
-            /////////VolDownHotkey = Keys.None;
-            ////////////MuteHotkey = Keys.None;
-            /////////////PTTHotkey = Keys.None;
             ComboKey = Keys.Alt;
 
-            F1.SelectedIndex = 0;
-            F2.SelectedIndex = 0;
-            F3.SelectedIndex = 0;
-            F4.SelectedIndex = 0;
-            F5.SelectedIndex = 0;
-            F6.SelectedIndex = 0;
-            F7.SelectedIndex = 0;
-            F8.SelectedIndex = 0;
-            F9.SelectedIndex = 1;
-            F10.SelectedIndex = 3;
-            F11.SelectedIndex = 2;
-            F12.SelectedIndex = 4;
+            F1.SelectedIndex = (int)FnID.non;
+            F2.SelectedIndex = (int)FnID.non;
+            F3.SelectedIndex = (int)FnID.non;
+            F4.SelectedIndex = (int)FnID.non;
+            F5.SelectedIndex = (int)FnID.non;
+            F6.SelectedIndex = (int)FnID.non;
+            F7.SelectedIndex = (int)FnID.non;
+            F8.SelectedIndex = (int)FnID.non;
+            F9.SelectedIndex = (int)FnID.ptt;
+            F10.SelectedIndex = (int)FnID.down;
+            F11.SelectedIndex = (int)FnID.mute;
+            F12.SelectedIndex = (int)FnID.up;
+
+            updateKeyList();
+
             button_SaveHotkeys_Click(sender, e);
         }
 
@@ -456,15 +442,51 @@ namespace AppVolumeHotkeys
                 return;
             }
 
-            UnregisterHotKey(this.Handle, 1);
-            UnregisterHotKey(this.Handle, 2);
-            UnregisterHotKey(this.Handle, 3);
+            unHotkeyRegist();
         }
 
         ///////////////////////////////////////////////
-        private void updateKeyList()
+        private void updateKeyList(object sender = null, EventArgs e = null)
         {
             //객체화 되지 않은 키 동작 메뉴(콤보박스)를 자동화 처리를 할 수 없으므로 하나씩 코드를 처리해야합니다.
+            for (int i = 0; i < 12; i++)
+            {
+                  hotkeys[i] = (byte)KeyArry[i].SelectedIndex;
+            }
+            unHotkeyRegist();
+            hotkeyRegist();
         }
+
+        private void hotkeyRegist()
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                switch (KeyArry[i].SelectedIndex)
+                {
+                    case (int)FnID.up:
+                        RegisterHotKey(this.Handle, i, (int)ComboKey, (int)keyID[i]);
+                        break;
+                    case (int)FnID.down:
+                        RegisterHotKey(this.Handle, i, (int)ComboKey, (int)keyID[i]);
+                        break;
+                    case (int)FnID.mute:
+                        RegisterHotKey(this.Handle, i, (int)ComboKey, (int)keyID[i]);
+                        break;
+                    case (int)FnID.ptt:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+        }
+        private void unHotkeyRegist()
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                UnregisterHotKey(this.Handle, i);
+            }
+        }
+
     }
 }
