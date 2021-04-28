@@ -418,7 +418,7 @@ namespace AppVolumeHotkeys
 
                 if (Properties.Settings.Default.FirstNotification)
                 {
-                    notifyIcon.ShowBalloonTip(5, string.Empty, "AppVolumeHotkeys will stay open in the background when you close the window, rightclick on the tray icon and select 'Exit' to close it.", ToolTipIcon.None);
+                    notifyIcon.ShowBalloonTip(5, string.Empty, "창을 닫아도 볼륨 조절 프로그램은 여전히 백그라운드로 실행되고 있습니다. 종료를 원하시면 Tray아이콘 영역에서 우클릭 후 Exit 메뉴를 클릭해 주세요.", ToolTipIcon.None);
                     Properties.Settings.Default.FirstNotification = false;
                     Properties.Settings.Default.Save();
                 }
