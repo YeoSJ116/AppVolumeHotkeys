@@ -87,6 +87,7 @@ namespace AppVolumeHotkeys
 
             //Double 형태로 저장된 레이아웃 불러오기
             Double rawKeys = Properties.Settings.Default.Keys;
+            Debug.WriteLine(rawKeys);
             Double mask = 100000000000;
             for (int i = 11; i >= 0; i--) {
                 hotkeys[i] = (byte)(rawKeys / mask);
@@ -123,6 +124,9 @@ namespace AppVolumeHotkeys
                     break;
                 case (int)Keys.Control:
                     cmbComboKey.SelectedIndex = (int)ComboID.Ctrl;
+                    break;
+                case (int)Keys.None:
+                    cmbComboKey.SelectedIndex = (int)ComboID.non;
                     break;
                 default:
                     MessageBox.Show("단축키의 조합키를 가져오는데 실패 했습니다.\n 기본 값인 non 값으로 재 설정 됩니다.");

@@ -2,15 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AppVolumeHotkeys.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="VolUpHotkey" Type="System.Windows.Forms.Keys" Scope="User">
-      <Value Profile="(Default)">None</Value>
-    </Setting>
-    <Setting Name="VolDownHotkey" Type="System.Windows.Forms.Keys" Scope="User">
-      <Value Profile="(Default)">None</Value>
-    </Setting>
-    <Setting Name="MuteHotkey" Type="System.Windows.Forms.Keys" Scope="User">
-      <Value Profile="(Default)">None</Value>
-    </Setting>
     <Setting Name="LastVolStep" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
@@ -27,10 +18,10 @@
       <Value Profile="(Default)">None</Value>
     </Setting>
     <Setting Name="ComboKey" Type="System.Windows.Forms.Keys" Scope="User">
-      <Value Profile="(Default)">None</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Keys" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">142300000000</Value>
     </Setting>
     <Setting Name="설정" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

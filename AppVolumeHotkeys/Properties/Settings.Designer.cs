@@ -25,42 +25,6 @@ namespace AppVolumeHotkeys.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys VolUpHotkey {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["VolUpHotkey"]));
-            }
-            set {
-                this["VolUpHotkey"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys VolDownHotkey {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["VolDownHotkey"]));
-            }
-            set {
-                this["VolDownHotkey"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::System.Windows.Forms.Keys MuteHotkey {
-            get {
-                return ((global::System.Windows.Forms.Keys)(this["MuteHotkey"]));
-            }
-            set {
-                this["MuteHotkey"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int LastVolStep {
             get {
@@ -121,7 +85,6 @@ namespace AppVolumeHotkeys.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("None")]
         public global::System.Windows.Forms.Keys ComboKey {
             get {
                 return ((global::System.Windows.Forms.Keys)(this["ComboKey"]));
@@ -133,7 +96,7 @@ namespace AppVolumeHotkeys.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("142300000000")]
         public double Keys {
             get {
                 return ((double)(this["Keys"]));
