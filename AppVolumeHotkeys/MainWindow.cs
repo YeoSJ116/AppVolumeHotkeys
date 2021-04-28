@@ -305,11 +305,18 @@ namespace AppVolumeHotkeys
             MuteModifier = Keys.None;
             PTTHotkey = Keys.None;
 
-            //tbxVolUpHotkey.Text = "None";
-            //tbxVolDownHotkey.Text = "None";
-            //tbxMuteHotkey.Text = "None";
-            //tbxPTTHotkey.Text = "None";
-
+            F1.SelectedIndex = 0;
+            F2.SelectedIndex = 0;
+            F3.SelectedIndex = 0;
+            F4.SelectedIndex = 0;
+            F5.SelectedIndex = 0;
+            F6.SelectedIndex = 0;
+            F7.SelectedIndex = 0;
+            F8.SelectedIndex = 0;
+            F9.SelectedIndex = 1;
+            F10.SelectedIndex = 3;
+            F11.SelectedIndex = 2;
+            F12.SelectedIndex = 4;
             button_SaveHotkeys_Click(sender, e);
         }
 
