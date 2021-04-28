@@ -143,6 +143,7 @@ namespace AppVolumeHotkeys
         /// <param name="e"></param>
         private void cmbAppName_SelectedIndexChanged(object sender, EventArgs e)
         {
+            volumeMixer.SetEndpoint(cmbEndpoints.SelectedIndex);
             WriteVolumeValue();
             WriteMuteLabel();
         }
@@ -175,6 +176,7 @@ namespace AppVolumeHotkeys
         public void WriteVolumeValue()
         {
             AppVolume = volumeMixer.GetApplicationVolume(cmbAppName.SelectedIndex);
+            //Console.WriteLine(AppVolume +"  "+ cmbAppName.SelectedIndex);
             lblAppVolume.Text = AppVolume.ToString();
             trackVolume.Value = AppVolume;
         }
